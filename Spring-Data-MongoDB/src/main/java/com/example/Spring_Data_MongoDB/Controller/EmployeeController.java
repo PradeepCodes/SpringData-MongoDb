@@ -1,5 +1,7 @@
 package com.example.Spring_Data_MongoDB.Controller;
 
+import com.example.Spring_Data_MongoDB.Exception.EmployeeNotFoundException;
+import com.example.Spring_Data_MongoDB.Service.EmployeeService;
 import org.springframework.ui.Model;
 import com.example.Spring_Data_MongoDB.Model.Employee;
 import com.example.Spring_Data_MongoDB.Repository.EmployeeRepository;
@@ -14,8 +16,8 @@ import java.util.Optional;
 
 @Controller
 public class EmployeeController {
-   @Autowired
-    private EmployeeRepository employeeRepository;
+    @Autowired
+    private EmployeeService employeeService;
 
     @GetMapping("/")
     public String showForm(Model model) {
@@ -23,25 +25,22 @@ public class EmployeeController {
         return "index";
     }
 
-    // Save employee to DB
     @PostMapping("/save")
     public String saveEmployee(@ModelAttribute Employee employee) {
-        employeeRepository.save(employee);
+        employeeService.saveEmployee(employee);
         return "redirect:/displayAll";
     }
 
-    // Display all employees
     @GetMapping("/displayAll")
     public String displayAllEmployees(Model model) {
-        model.addAttribute("employees", employeeRepository.findAll());
+        model.addAttribute("employees", employeeService.getAllEmployees());
         return "display";
     }
 
-    // Display employee by ID
     @GetMapping("/display/{id}")
     public String displayById(@PathVariable String id, Model model) {
-        Optional<Employee> emp = employeeRepository.findById(id);
-        model.addAttribute("employee", emp.orElse(null));
+        Employee employee = employeeService.getEmployeeById(id);  // throws if not found
+        model.addAttribute("employee", employee);
         return "display";
     }
 }

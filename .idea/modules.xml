@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Spring-Data-MongoDB.iml" filepath="$PROJECT_DIR$/.idea/Spring-Data-MongoDB.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Spring-Data-MongoDB/Spring-Data-MongoDB.iml" filepath="$PROJECT_DIR$/Spring-Data-MongoDB/Spring-Data-MongoDB.iml" />
     </modules>
   </component>
 </project>
